@@ -1,0 +1,8 @@
+C:\Users\SinLa\Desktop\Start\git-repo\page-crawl\build\node_modules\ajv
+C:\Users\SinLa\Desktop\Start\git-repo\page-crawl\build\node_modules\es6-promise
+C:\Users\SinLa\Desktop\Start\git-repo\page-crawl\build\node_modules\eventemitter3
+C:\Users\SinLa\Desktop\Start\git-repo\page-crawl\build\node_modules\iconv-lite
+C:\Users\SinLa\Desktop\Start\git-repo\page-crawl\build\node_modules\performance-now
+C:\Users\SinLa\Desktop\Start\git-repo\page-crawl\build\node_modules\setprototypeof
+C:\Users\SinLa\Desktop\Start\git-repo\page-crawl\build\node_modules\source-map
+C:\Users\SinLa\Desktop\Start\git-repo\page-crawl\build\node_modules\xmlbuilder
