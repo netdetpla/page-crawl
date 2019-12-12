@@ -1,2 +1,0 @@
-C:\Users\SinLa\Desktop\Start\git-repo\page-crawl\build\node_modules\kotlin
-C:\Users\SinLa\Desktop\Start\git-repo\page-crawl\build\node_modules\kotlinx-coroutines-core

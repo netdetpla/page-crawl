@@ -2,7 +2,8 @@ HELP.md
 ！target/
 target/*
 !/target/js/*.js
-
+.gradle
+build
 !.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###

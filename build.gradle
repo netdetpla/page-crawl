@@ -43,6 +43,7 @@ compileKotlin2Js {
 
 kotlinFrontend {
     npm {
-        devDependency "puppeteer"     // development dependency
+        dependency "puppeteer"
+        dependency "moment"
     }
 }
