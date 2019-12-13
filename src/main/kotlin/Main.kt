@@ -55,6 +55,7 @@ object Main {
                 it.devtools = true
                 it.args = arrayOf("--no-sandbox", "--disable-setuid-sandbox")
                 it.headless = true
+                it.executablePath = "/usr/bin/chromium"
             }).await()
             try {
                 val page = browser.newPage().await()
