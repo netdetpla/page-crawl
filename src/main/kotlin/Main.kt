@@ -85,6 +85,8 @@ object Main {
                     page.waitFor(1000).await()
                     val content = page.content().await() as String
                     url.html = js("Buffer").from(content).toString("base64") as String
+                } catch (e: Exception) {
+                    Log.warn(e.toString())
                 } finally {
                     browser.close().await()
                 }
