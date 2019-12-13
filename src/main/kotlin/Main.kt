@@ -16,8 +16,10 @@ fun <T> async(x: suspend () -> T): Promise<T> {
             override fun resumeWith(result: Result<T>) {
                 if (result.isSuccess)
                     resolve(result.getOrNull()!!)
-                else
+                else {
+                    Log.warn(result.exceptionOrNull()?.toString() ?: "")
                     reject(result.exceptionOrNull()!!)
+                }
             }
         })
     }
