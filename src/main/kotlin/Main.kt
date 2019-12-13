@@ -27,7 +27,7 @@ object Main {
 
     private const val appStatusDir = "/tmp/appstatus/"
     private const val resultDir = "/tmp/result/"
-    private var urls = ArrayList<URL>()
+    var urls = ArrayList<URL>()
 
     init {
         if (!FS.existsSync(appStatusDir)) {
@@ -46,32 +46,6 @@ object Main {
         }
         Log.debug("params: ")
         Log.debug(param)
-    }
-
-    fun execute() {
-        Log.info("spider start")
-        async {
-            var content: String
-            val browser = Puppeteer.launch(object {}.also { it: dynamic ->
-                it.devtools = true
-                it.args = arrayOf("--no-sandbox", "--disable-setuid-sandbox")
-                it.headless = true
-                it.executablePath = "/usr/bin/chromium"
-            }).await()
-            try {
-                for (url in urls) {
-                    val page = browser.newPage().await()
-                    page.goto(url.url, object {}.also { it: dynamic -> it.timeout = 10 * 1000 }).await()
-                    page.waitFor(1000).await()
-                    content = page.content().await() as String
-                    url.html = js("Buffer").from(content).toString("base64") as String
-                    page.close().await()
-                }
-            } finally {
-                browser.close().await()
-            }
-        }
-        Log.info("spider end")
     }
 
     fun writeResult() {
@@ -98,15 +72,32 @@ fun main() {
     // 获取配置
     Main.parseParam()
     // 执行
-    try {
-        Main.execute()
-        // 写结果
-        Main.writeResult()
-    } catch (e: Exception) {
-        Log.error(e.toString())
-        Main.errorEnd(e.toString(), 11)
-    }
-    // 结束
-    Main.successEnd()
-    Log.info("page-crawl end successfully")
+    Log.info("spider start")
+    async {
+        var content: String
+        val browser = Puppeteer.launch(object {}.also { it: dynamic ->
+            it.devtools = true
+            it.args = arrayOf("--no-sandbox", "--disable-setuid-sandbox")
+            it.headless = true
+            it.executablePath = "/usr/bin/chromium"
+        }).await()
+        try {
+            for (url in Main.urls) {
+                val page = browser.newPage().await()
+                page.goto(url.url, object {}.also { it: dynamic -> it.timeout = 10 * 1000 }).await()
+                page.waitFor(1000).await()
+                content = page.content().await() as String
+                url.html = js("Buffer").from(content).toString("base64") as String
+                page.close().await()
+            }
+            Log.info("spider end")
+            Main.writeResult()
+            Main.successEnd()
+            Log.info("page-crawl end successfully")
+        } catch (e: Exception) {
+            Main.errorEnd(e.toString(), 11)
+        } finally {
+                browser.close().await()
+            }
+        }
 }
