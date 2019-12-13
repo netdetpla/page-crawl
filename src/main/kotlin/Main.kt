@@ -97,7 +97,7 @@ fun main() {
         } catch (e: Exception) {
             Main.errorEnd(e.toString(), 11)
         } finally {
-                browser.close().await()
-            }
+            browser.close().await()
         }
+    }
 }
