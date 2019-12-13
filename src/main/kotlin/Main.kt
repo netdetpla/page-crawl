@@ -33,7 +33,7 @@ object Main {
         if (!FS.existsSync(appStatusDir)) {
             FS.mkdirSync(appStatusDir, true)
         }
-        if (!FS.existsSync(appStatusDir)) {
+        if (!FS.existsSync(resultDir)) {
             FS.mkdirSync(resultDir, true)
         }
     }
