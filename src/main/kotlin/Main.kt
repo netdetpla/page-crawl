@@ -48,32 +48,47 @@ object Main {
         Log.debug(param)
     }
 
-    private fun spider(url: String): String {
-        var content = ""
-        async {
-            val browser = Puppeteer.launch(object {}.also { it: dynamic ->
-                it.devtools = true
-                it.args = arrayOf("--no-sandbox", "--disable-setuid-sandbox")
-                it.headless = true
-                it.executablePath = "/usr/bin/chromium"
-            }).await()
-            try {
-                print("in chrome")
-                val page = browser.newPage().await()
-                page.goto(url, object {}.also { it: dynamic -> it.timeout = 10 * 1000 }).await()
-                page.waitFor(1000).await()
-                content = page.content().await() as String
-            } finally {
-                browser.close().await()
-            }
-        }
-        return content
-    }
+//    private fun spider(url: String): String {
+//        var content = ""
+//        async {
+//            val browser = Puppeteer.launch(object {}.also { it: dynamic ->
+//                it.devtools = true
+//                it.args = arrayOf("--no-sandbox", "--disable-setuid-sandbox")
+//                it.headless = true
+//                it.executablePath = "/usr/bin/chromium"
+//            }).await()
+//            try {
+//                val page = browser.newPage().await()
+//                page.goto(url, object {}.also { it: dynamic -> it.timeout = 10 * 1000 }).await()
+//                page.waitFor(1000).await()
+//                content = page.content().await() as String
+//            } finally {
+//                browser.close().await()
+//            }
+//        }
+//        return content
+//    }
 
     fun execute() {
         Log.info("spider start")
         for (url in urls) {
-            url.html = js("Buffer").from(spider(url.url)).toString("base64") as String
+            async {
+                val browser = Puppeteer.launch(object {}.also { it: dynamic ->
+                    it.devtools = true
+                    it.args = arrayOf("--no-sandbox", "--disable-setuid-sandbox")
+                    it.headless = true
+                    it.executablePath = "/usr/bin/chromium"
+                }).await()
+                try {
+                    val page = browser.newPage().await()
+                    page.goto(url.url, object {}.also { it: dynamic -> it.timeout = 10 * 1000 }).await()
+                    page.waitFor(1000).await()
+                    val content = page.content().await() as String
+                    url.html = js("Buffer").from(content).toString("base64") as String
+                } finally {
+                    browser.close().await()
+                }
+            }
         }
         Log.info("spider end")
     }
