@@ -58,6 +58,7 @@ object Main {
                 it.executablePath = "/usr/bin/chromium"
             }).await()
             try {
+                print("in chrome")
                 val page = browser.newPage().await()
                 page.goto(url, object {}.also { it: dynamic -> it.timeout = 10 * 1000 }).await()
                 page.waitFor(1000).await()
