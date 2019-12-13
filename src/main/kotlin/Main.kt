@@ -30,8 +30,12 @@ object Main {
     private var urls = ArrayList<URL>()
 
     init {
-        FS.mkdirSync(appStatusDir, true)
-        FS.mkdirSync(resultDir, true)
+        if (!FS.existsSync(appStatusDir)) {
+            FS.mkdirSync(appStatusDir, true)
+        }
+        if (!FS.existsSync(appStatusDir)) {
+            FS.mkdirSync(resultDir, true)
+        }
     }
 
     fun parseParam() {

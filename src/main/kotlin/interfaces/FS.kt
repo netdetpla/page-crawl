@@ -10,4 +10,6 @@ external object FS {
 
     fun mkdirSync(path: String, recursive: Boolean)
 
+    fun existsSync(path: String): Boolean
+
 }

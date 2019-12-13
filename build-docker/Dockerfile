@@ -2,5 +2,4 @@ FROM openjdk:11.0.5-jre-stretch
 
 RUN cd / \
 && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
-&& apt update \
 && apt install -y nodejs
