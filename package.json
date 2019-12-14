@@ -1,0 +1,17 @@
+{
+  "name": "page-crawl",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "complie": "./node_modules/.bin/tsc",
+    "run": "node ./build/main.js"
+  },
+  "dependencies": {
+    "@types/node": "^12.12.17",
+    "moment": "*",
+    "@types/puppeteer": "*"
+  },
+  "devDependencies": {
+    "typescript": "*"
+  }
+}
