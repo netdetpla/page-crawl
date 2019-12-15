@@ -32,7 +32,7 @@ async function execute(urls: Url[]) {
         devtools: true,
         args: ["--no-sandbox", "--disable-setuid-sandbox"],
         headless: true,
-        executablePath: "/usr/bin/chromium"
+        // executablePath: "/usr/bin/chromium"
     });
     try {
         for (let i = 0; i < urls.length; i++) {
