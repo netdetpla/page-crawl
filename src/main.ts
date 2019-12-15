@@ -4,17 +4,12 @@ import puppeteer = require("puppeteer");
 import { Url } from "./url";
 import { Log } from "./log";
 
-declare var appStatusDir: string;
-appStatusDir = "/tmp/appstatus/";
-declare var resultDir: string;
-resultDir = "/tmp/result/";
-
 function init() {
-    if (!fs.existsSync(appStatusDir)) {
-        fs.mkdirSync(appStatusDir, {});
+    if (!fs.existsSync("/tmp/appstatus/")) {
+        fs.mkdirSync("/tmp/appstatus/", {});
     }
-    if (!fs.existsSync(resultDir)) {
-        fs.mkdirSync(resultDir, {})
+    if (!fs.existsSync("/tmp/result/")) {
+        fs.mkdirSync("/tmp/result/", {})
     }
 }
 
@@ -63,16 +58,16 @@ function writeResult(urls: Url[]) {
     Log.info("writing result file");
     for (let i = 0; i < urls.length; i++) {
         let fileName = urls[i].id + ".result";
-        fs.writeFileSync(resultDir + fileName, urls[i].id + "," + urls[i].html);
+        fs.writeFileSync("/tmp/result/" + fileName, urls[i].id + "," + urls[i].html);
     }
 }
 
 function successEnd() {
-    fs.writeFileSync(appStatusDir + "0", "");
+    fs.writeFileSync("/tmp/appstatus/" + "0", "");
 }
 
 function errorEnd(message: string, code: number) {
-    fs.writeFileSync(appStatusDir + "1", message);
+    fs.writeFileSync("/tmp/appstatus/" + "1", message);
     process.exit(code);
 }
 

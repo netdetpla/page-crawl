@@ -9,6 +9,7 @@
   "dependencies": {
     "@types/node": "^12.12.17",
     "moment": "*",
+    "puppeteer": "*",
     "@types/puppeteer": "*"
   },
   "devDependencies": {
