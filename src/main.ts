@@ -19,8 +19,7 @@ function parseParam(): Url[] {
     urls = [];
     let tasks = param.split(";");
     for (let i = 0; i < tasks.length; i++) {
-        let ps = tasks[i].split(",");
-        urls.push(new Url(ps[0], ps[1]));
+        urls.push(new Url(tasks[i]));
     }
     Log.debug("params: ");
     Log.debug(param);
@@ -59,8 +58,8 @@ async function execute(urls: Url[]) {
 function writeResult(urls: Url[]) {
     Log.info("writing result file");
     for (let i = 0; i < urls.length; i++) {
-        let fileName = urls[i].id + ".result";
-        fs.writeFileSync("/tmp/result/" + fileName, urls[i].id + "," + urls[i].html);
+        let fileName = i.toString() + ".result";
+        fs.writeFileSync("/tmp/result/" + fileName, urls[i].html);
     }
 }
 
