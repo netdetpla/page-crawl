@@ -48,6 +48,7 @@ async function execute(urls: Url[]) {
         successEnd();
         Log.info("page-crawl end successfully")
     } catch (e) {
+        Log.error(e.stack);
         errorEnd(e.toString(), 11)
     } finally {
         await browser.close()
