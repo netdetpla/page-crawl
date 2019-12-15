@@ -1,5 +1,6 @@
 import fs = require("fs");
-import * as puppeteer from "puppeteer"
+import puppeteer = require("puppeteer");
+
 import { Url } from "./url";
 import { Log } from "./log";
 
