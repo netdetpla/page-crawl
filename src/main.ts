@@ -59,7 +59,7 @@ function writeResult(urls: Url[]) {
     Log.info("writing result file");
     for (let i = 0; i < urls.length; i++) {
         let fileName = i.toString() + ".result";
-        fs.writeFileSync("/tmp/result/" + fileName, urls[i].html);
+        fs.writeFileSync("/tmp/result/" + fileName, urls[i].url + "," + urls[i].html);
     }
 }
 
