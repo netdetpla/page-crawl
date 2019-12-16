@@ -17,7 +17,7 @@ function parseParam(): Url[] {
     let param = fs.readFileSync("/tmp/conf/busi.conf", "utf8");
     let urls: Url[];
     urls = [];
-    let tasks = param.split(";");
+    let tasks = param.split(",");
     for (let i = 0; i < tasks.length; i++) {
         urls.push(new Url(tasks[i]));
     }
