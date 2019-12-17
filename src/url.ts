@@ -2,6 +2,11 @@ export class Url {
     url: string;
     html = "";
     constructor(url: string) {
-        this.url = url;
+        let httpRegex = "^http.*";
+        if (url.match(httpRegex)) {
+            this.url = url;
+        } else {
+            this.url = "http://" + url;
+        }
     }
 }
