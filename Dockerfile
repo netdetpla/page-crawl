@@ -8,7 +8,8 @@ ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 RUN apt update \
 && apt install -y chromium \
-&& cd / \
+
+RUN cd / \
 && npm i \
 && npm run compile
 
