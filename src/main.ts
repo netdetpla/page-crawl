@@ -35,23 +35,30 @@ async function execute(urls: Url[]) {
         executablePath: "/usr/bin/chromium"
     });
     try {
+        let page = await browser.newPage();
         for (let i = 0; i < urls.length; i++) {
-            let page = await browser.newPage();
-            await page.goto(urls[i].url, {timeout: 10 * 1000});
-            await page.waitFor(1000);
-            content = await page.content();
-            urls[i].html = Buffer.from(content).toString("base64");
-            await page.close();
+            let connected = true;
+            await page.goto(urls[i].url, {timeout: 10 * 1000})
+                .catch(reason => {
+                    Log.warn(reason);
+                    connected = false;
+                });
+            if (connected) {
+                await page.waitFor(1000);
+                content = await page.content();
+                urls[i].html = Buffer.from(content).toString("base64");
+            }
         }
+        await page.close();
         Log.info("spider end");
         writeResult(urls);
         successEnd();
-        Log.info("page-crawl end successfully")
+        Log.info("page-crawl end successfully");
     } catch (e) {
         Log.error(e.stack);
-        errorEnd(e.toString(), 11)
+        errorEnd(e.toString(), 11);
     } finally {
-        await browser.close()
+        await browser.close();
     }
 }
 
